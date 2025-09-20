@@ -9,6 +9,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ReservationFormComponent implements OnInit {
 
   constructor(private FormBuilder: FormBuilder) {
+    this.reservationForm = new FormGroup({
+      checkInDate: this.FormBuilder.control(''),
+      checkOutDate: this.FormBuilder.control(''),
+      guestEmail: this.FormBuilder.control(''),
+      guestName: this.FormBuilder.control(''),
+      numberOfGuests: this.FormBuilder.control('')
+    });
     
   }
   ngOnInit(): void {
@@ -31,4 +38,8 @@ export class ReservationFormComponent implements OnInit {
   }
 
 
-}
+  }
+
+
+
+

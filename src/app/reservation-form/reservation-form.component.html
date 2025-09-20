@@ -2,17 +2,32 @@
     <div>
         <label>Check-In-Date</label>
         <input type="date" formControlName="checkInDate">
+
+        <div *ngIf="reservationForm.get('checkInDate')?.invalid && (reservationForm.get('checkInDate')?.dirty || reservationForm.get('checkInDate')?.touched)">
+            Check-In date is required.
+
+        </div>
     </div>
 
     <div>
         <label>Check-Out-Date</label>
         <input type="date" formControlName="checkOutDate">
+        <div *ngIf="reservationForm.get('checkOutDate')?.invalid && (reservationForm.get('checkOutDate')?.dirty || reservationForm.get('checkOutDate')?.touched)">
+            Check-Out date is required.
+
+
+        </div>
     </div>
 
     <div>
         <label>GuestEmail</label>
         <input type="email" formControlName="guestEmail">
-    </div>
+        <div *ngIf="reservationForm.get('guestEmail')?.invalid && (reservationForm.get('guestEmail')?.dirty || reservationForm.get('guestEmail')?.touched)">
+            Valid email is required.
+            </div>
+
+        </div>
+
 
     <div>
         <label>GuestName</label>
