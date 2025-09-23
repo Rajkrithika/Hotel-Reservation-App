@@ -15,4 +15,13 @@ export class ReservationService {
     return this.reservations.find(res=> res.id === id);
   }
 
+  addReservation(reservation: Reservation) : void{
+    this.reservations.push(reservation);
+    console.log(this.reservations);
+  } 
+
+  deleteReservation (id:number) : void {
+    this.reservations = this.reservations.filter(res=> res.id !== id);
+    this.reservations.splice(id, 1);
+  }
 }
