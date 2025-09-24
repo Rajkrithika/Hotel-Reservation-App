@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReservationService } from '../reservation/reservation.service';
 import { Reservation } from '../models/reservation';
 import {Router} from '@angular/router';
-
+import { HomeModule } from '../home/home.module';
 @Component({
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
-  styleUrl: './reservation-form.component.css'
+  styleUrls: ['./reservation-form.component.css']
 })
 export class ReservationFormComponent implements OnInit {
 

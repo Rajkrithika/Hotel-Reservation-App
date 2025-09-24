@@ -1,3 +1,6 @@
+
+<div class="text-center my-3">
+
 <h2>Reservation List</h2> 
 
 <ul *ngIf="reservations.length; else noReservations">
@@ -6,9 +9,11 @@
     Email: {{ reservation.guestEmail }} <br>
     Check-in: {{ reservation.checkInDate }} <br>
     Check-out: {{ reservation.checkOutDate }}
+    <button (click)="deleteReservation(reservation.id)">Delete</button>
   </li>
 </ul>
 
 <ng-template #noReservations>
   <li>No reservations found.</li>
 </ng-template>
+</div>

@@ -1,7 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Reservation } from '../models/reservation';
-
 @Injectable({
   providedIn: 'root'
 })

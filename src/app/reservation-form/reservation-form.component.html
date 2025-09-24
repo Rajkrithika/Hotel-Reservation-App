@@ -1,5 +1,7 @@
 <form [formGroup]="reservationForm"  (ngSubmit)="onSubmit()">
-    <div>
+    <div class="container text-center my-3">
+        <h2>Reservation Form</h2>
+    <div class="checkIn mx-3">
         <label>Check-In-Date</label>
         <input type="date" formControlName="checkInDate">
 
@@ -9,7 +11,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="checkOut mx-3">
         <label>Check-Out-Date</label>
         <input type="date" formControlName="checkOutDate">
         <div *ngIf="reservationForm.get('checkOutDate')?.invalid && (reservationForm.get('checkOutDate')?.dirty || reservationForm.get('checkOutDate')?.touched)">
@@ -39,9 +41,12 @@
         <label>Number of Guests</label>
         <input type="number" formControlName="numberOfGuests">
     </div>
+        <button type="submit" [disabled]="reservationForm.invalid">SUBMIT</button>
 
+    </div>
 
-    <button type="submit" [disabled]="reservationForm.invalid">SUBMIT</button>
 
 
 </form>
+
+
