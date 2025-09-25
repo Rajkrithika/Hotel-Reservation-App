@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ReservationService } from '../reservation/reservation.service';
 import { Reservation } from '../models/reservation';
-import {Router} from '@angular/router';
-import { HomeModule } from '../home/home.module';
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-reservation-form',
   templateUrl: './reservation-form.component.html',
@@ -11,45 +11,53 @@ import { HomeModule } from '../home/home.module';
 })
 export class ReservationFormComponent implements OnInit {
 
-  constructor(private FormBuilder: FormBuilder, 
-    private reservationservice : ReservationService ,
-    private router: Router
+  reservationForm: FormGroup = new FormGroup({});
 
-  ) {
-    this.reservationForm = new FormGroup({
-      checkInDate: this.FormBuilder.control(''),
-      checkOutDate: this.FormBuilder.control(''),
-      guestEmail: this.FormBuilder.control(''),
-      guestName: this.FormBuilder.control(''),
-      numberOfGuests: this.FormBuilder.control('')
-    });
-    
+  constructor(
+    private formBuilder: FormBuilder,
+    private reservationService: ReservationService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute){
+
   }
-  ngOnInit(): void {
 
-    this.reservationForm = this.FormBuilder.group ({
+  ngOnInit(): void {
+    this.reservationForm = this.formBuilder.group({
       checkInDate: ['', Validators.required],
       checkOutDate: ['', Validators.required],
-      guestEmail: ['', [Validators.required, Validators.email]],
       guestName: ['', Validators.required],
-      numberOfGuests: ['', [Validators.required, Validators.min(1)]]
+      guestEmail: ['', [Validators.required, Validators.email]],
+      roomNumber: ['', Validators.required]
     })
-  }
 
-  reservationForm: FormGroup = new FormGroup({}); 
+    let id = this.activatedRoute.snapshot.paramMap.get('id')
 
-  onSubmit() {
-    if(this.reservationForm.valid) {
-      let reservation: Reservation = this.reservationForm.value;
-      this.reservationservice.addReservation(reservation);
+    if(id){
+      let reservation = this.reservationService.getReservation(id)
 
-      this.router.navigate(['/list']);
+      if(reservation)
+        this.reservationForm.patchValue(reservation)
     }
   }
 
+  onSubmit() {
+    if(this.reservationForm.valid){
 
+      let reservation: Reservation = this.reservationForm.value;
+
+      let id = this.activatedRoute.snapshot.paramMap.get('id')
+
+      if(id){
+        // Update
+        this.reservationService.updateReservation(id, reservation)
+      } else {
+        // New
+        this.reservationService.addReservation(reservation)   
+
+      }
+
+      this.router.navigate(['/list'])
+    }
   }
 
-
-
-
+}
